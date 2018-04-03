@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Struts2-Aciton通配符的使用昨天在写人事管理系统时，发现自己对struts2当中Action通配符的使用还不熟悉，现在就来复习一下。 为什么要使用通配符首先来看一段代码： 1234567891011public class DemoAction extends AcitonSupport&amp;#123;    public String login()&amp;#123;        Syste">
+<meta name="description" content="前言昨天在写人事管理系统时，发现自己对struts2当中Action通配符的使用还不熟悉，现在就来复习一下。 为什么要使用通配符首先来看一段代码： 1234567891011public class DemoAction extends AcitonSupport&amp;#123;    public String login()&amp;#123;        System.out.println(&amp;quo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="KINNLL">
+<meta property="og:title" content="Struts2-通配符的使用">
 <meta property="og:url" content="http://yoursite.com/2018/04/03/Struts2-通配符使用/index.html">
 <meta property="og:site_name" content="KINNLL">
-<meta property="og:description" content="Struts2-Aciton通配符的使用昨天在写人事管理系统时，发现自己对struts2当中Action通配符的使用还不熟悉，现在就来复习一下。 为什么要使用通配符首先来看一段代码： 1234567891011public class DemoAction extends AcitonSupport&amp;#123;    public String login()&amp;#123;        Syste">
+<meta property="og:description" content="前言昨天在写人事管理系统时，发现自己对struts2当中Action通配符的使用还不熟悉，现在就来复习一下。 为什么要使用通配符首先来看一段代码： 1234567891011public class DemoAction extends AcitonSupport&amp;#123;    public String login()&amp;#123;        System.out.println(&amp;quo">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/07B1080282064C1FACEB493BFF7971CD/1523">
-<meta property="og:updated_time" content="2018-04-03T04:04:21.326Z">
+<meta property="og:updated_time" content="2018-04-03T04:09:24.848Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KINNLL">
-<meta name="twitter:description" content="Struts2-Aciton通配符的使用昨天在写人事管理系统时，发现自己对struts2当中Action通配符的使用还不熟悉，现在就来复习一下。 为什么要使用通配符首先来看一段代码： 1234567891011public class DemoAction extends AcitonSupport&amp;#123;    public String login()&amp;#123;        Syste">
+<meta name="twitter:title" content="Struts2-通配符的使用">
+<meta name="twitter:description" content="前言昨天在写人事管理系统时，发现自己对struts2当中Action通配符的使用还不熟悉，现在就来复习一下。 为什么要使用通配符首先来看一段代码： 1234567891011public class DemoAction extends AcitonSupport&amp;#123;    public String login()&amp;#123;        System.out.println(&amp;quo">
 <meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/07B1080282064C1FACEB493BFF7971CD/1523">
 
 
@@ -127,7 +127,7 @@
 
 
 
-  <title> | KINNLL</title>
+  <title>Struts2-通配符的使用 | KINNLL</title>
   
 
 
@@ -271,7 +271,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">Struts2-通配符的使用</h1>
         
 
         <div class="post-meta">
@@ -321,7 +321,7 @@
       
 
       
-        <h1 id="Struts2-Aciton通配符的使用"><a href="#Struts2-Aciton通配符的使用" class="headerlink" title="Struts2-Aciton通配符的使用"></a>Struts2-Aciton通配符的使用</h1><p>昨天在写人事管理系统时，发现自己对struts2当中Action通配符的使用还不熟悉，现在就来复习一下。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>昨天在写人事管理系统时，发现自己对struts2当中Action通配符的使用还不熟悉，现在就来复习一下。</p>
 <h2 id="为什么要使用通配符"><a href="#为什么要使用通配符" class="headerlink" title="为什么要使用通配符"></a>为什么要使用通配符</h2><p>首先来看一段代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class DemoAction extends AcitonSupport&#123;</span><br><span class="line">    public String login()&#123;</span><br><span class="line">        System.out.println(&quot;Login&quot;);</span><br><span class="line">        return &quot;success&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    public String register()&#123;</span><br><span class="line">        System.out.println(&quot;Register&quot;);</span><br><span class="line">        return &quot;success&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>那么在struts.xml当中就要有如下配置：</p>
@@ -495,7 +495,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Struts2-Aciton通配符的使用"><span class="nav-number">1.</span> <span class="nav-text">Struts2-Aciton通配符的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用通配符"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要使用通配符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用通配符"><span class="nav-number">1.2.</span> <span class="nav-text">如何使用通配符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要使用通配符"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要使用通配符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用通配符"><span class="nav-number">1.2.</span> <span class="nav-text">如何使用通配符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>

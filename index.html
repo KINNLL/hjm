@@ -271,7 +271,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/03/Struts2-通配符使用/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2018/04/03/Struts2-通配符使用/" itemprop="url">Struts2-通配符的使用</a></h1>
         
 
         <div class="post-meta">
@@ -323,7 +323,7 @@
       
         
           
-            <h1 id="Struts2-Aciton通配符的使用"><a href="#Struts2-Aciton通配符的使用" class="headerlink" title="Struts2-Aciton通配符的使用"></a>Struts2-Aciton通配符的使用</h1><p>昨天在写人事管理系统时，发现自己对struts2当中Action通配符的使用还不熟悉，现在就来复习一下。</p>
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>昨天在写人事管理系统时，发现自己对struts2当中Action通配符的使用还不熟悉，现在就来复习一下。</p>
 <h2 id="为什么要使用通配符"><a href="#为什么要使用通配符" class="headerlink" title="为什么要使用通配符"></a>为什么要使用通配符</h2><p>首先来看一段代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class DemoAction extends AcitonSupport&#123;</span><br><span class="line">    public String login()&#123;</span><br><span class="line">        System.out.println(&quot;Login&quot;);</span><br><span class="line">        return &quot;success&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    public String register()&#123;</span><br><span class="line">        System.out.println(&quot;Register&quot;);</span><br><span class="line">        return &quot;success&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>那么在struts.xml当中就要有如下配置：</p>
