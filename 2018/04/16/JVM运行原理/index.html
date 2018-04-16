@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/CDE3923EA80841739F9343AEB416E0A1/1725">
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/93B2E84A66F74FD49C255175DCDC0654/1848">
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/FE11F8772737445F8E30D0BA4EDA2D23/1918">
-<meta property="og:updated_time" content="2018-04-16T07:58:35.489Z">
+<meta property="og:updated_time" content="2018-04-16T08:02:33.255Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM运行原理">
 <meta name="twitter:description" content="初识JVM在进行代码的编写时，常常涉及内存的分配问题，为更好的理解java底层的实现，做到知其然而知其所以然，因此写下本博文，加深对JVM理论知识的理解。 JVM是什么JVM是JAVA Virtual Machine的缩写，意思为java虚拟机。JVM是JRE（JAVA运行环境）的一部分，是一个虚构出来的运行在操作系统之上的计算机。JVM有完善的架构，例如堆栈，寄存器，处理器，还有相应的指令系统。">
@@ -337,7 +337,7 @@
 <li>AppClassLoader<br>系统类加载器，也成为应用程序类加载器，负责加载应用程序classpath目录的jar和class文件，父类加载器是Ext加载器</li>
 <li>由以上三点可以得出三个加载器的层次结构：</li>
 </ol>
-<p><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/CDE3923EA80841739F9343AEB416E0A1/1725" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/CDE3923EA80841739F9343AEB416E0A1/1725" alt="image"><br><a id="more"></a></p>
 <h3 id="类加载的机制"><a href="#类加载的机制" class="headerlink" title="类加载的机制"></a>类加载的机制</h3><p>类的生命周期可以分为七个阶段：加载，验证，准备，解析，初始化，使用，卸载。其中前五个阶段为类加载到内存的过程。注意这几个阶段是按顺序开始，并不是按顺序进行和完成。</p>
 <ol>
 <li>加载：查找和导入Class文件</li>

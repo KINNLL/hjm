@@ -322,8 +322,7 @@
 
       
         
-          
-            <h1 id="初识JVM"><a href="#初识JVM" class="headerlink" title="初识JVM"></a>初识JVM</h1><p>在进行代码的编写时，常常涉及内存的分配问题，为更好的理解java底层的实现，做到知其然而知其所以然，因此写下本博文，加深对JVM理论知识的理解。</p>
+          <h1 id="初识JVM"><a href="#初识JVM" class="headerlink" title="初识JVM"></a>初识JVM</h1><p>在进行代码的编写时，常常涉及内存的分配问题，为更好的理解java底层的实现，做到知其然而知其所以然，因此写下本博文，加深对JVM理论知识的理解。</p>
 <h2 id="JVM是什么"><a href="#JVM是什么" class="headerlink" title="JVM是什么"></a>JVM是什么</h2><p>JVM是JAVA Virtual Machine的缩写，意思为java虚拟机。JVM是JRE（JAVA运行环境）的一部分，是一个虚构出来的运行在操作系统之上的计算机。JVM有完善的架构，例如堆栈，寄存器，处理器，还有相应的指令系统。</p>
 <h2 id="Java程序运行过程"><a href="#Java程序运行过程" class="headerlink" title="Java程序运行过程"></a>Java程序运行过程</h2><p>一个java程序执行的完整过程可以用以下图来解释：<br><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/BB9A90ADC8AD4F8F8EBAD64AA79BC7A0/1630" alt="image"></p>
 <p>首先，java源文件会被java编译器编译为字节码文件，也就是文件后缀会从java转为class，然后由JVM当中的类加载器加载各个类的字节码文件，加载完毕后，交给JVM执行引擎执行。在执行期间，JVM把这段时间所要用到的数据和相关信息会在运行时数据区进行存储，这段数据区也就是俗称的JVM内存。所以在JVM中，需要重点关注的就是这部分内容。</p>
@@ -336,64 +335,14 @@
 <li>AppClassLoader<br>系统类加载器，也成为应用程序类加载器，负责加载应用程序classpath目录的jar和class文件，父类加载器是Ext加载器</li>
 <li>由以上三点可以得出三个加载器的层次结构：</li>
 </ol>
-<p><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/CDE3923EA80841739F9343AEB416E0A1/1725" alt="image"></p>
-<h3 id="类加载的机制"><a href="#类加载的机制" class="headerlink" title="类加载的机制"></a>类加载的机制</h3><p>类的生命周期可以分为七个阶段：加载，验证，准备，解析，初始化，使用，卸载。其中前五个阶段为类加载到内存的过程。注意这几个阶段是按顺序开始，并不是按顺序进行和完成。</p>
-<ol>
-<li>加载：查找和导入Class文件</li>
-<li>验证：确保Class文件中的字节流信息符合当前虚拟机的要求<br>，而且不会危害虚拟机的安全</li>
-<li>准备阶段是正式为类分配内存并设置变量初始值的阶段，这些内存都将在方法区中进行分配</li>
-<li>解析：这个阶段是虚拟机将常量池内的符号引用替换为直接引用的过程</li>
-<li><p>初始化：到了这个阶段，开始执行类中定义的Java程序代码，为类的静态变量赋予正确的初始值，JVM负责对类进行初始化，主要对类变量进行初始化。那么类初始的触发条件可以有：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(1) 创建类的实例，也就是new的方式</span><br><span class="line"></span><br><span class="line">(2) 访问某个类或接口的静态变量，或者对该静态变量赋值</span><br><span class="line"></span><br><span class="line">(3) 调用类的静态方法</span><br><span class="line"></span><br><span class="line">(4) 反射（如Class.forName(“com.shengsiyuan.Test”)）</span><br><span class="line"></span><br><span class="line">(5) 初始化某个类的子类，则其父类也会被初始化</span><br><span class="line"></span><br><span class="line">(6) Java虚拟机启动时被标明为启动类的类（Java Test），直接使用java.exe命令来运行某个主类</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>结束生命周期</p>
-</li>
-</ol>
-<p>在以下情况下，JVM会结束类文件的生命周期<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(1) 执行了System.exit()方法 </span><br><span class="line">(2) 程序正常执行结束 </span><br><span class="line">(3) 程序在执行过程中遇到了异常或错误而异常终止 </span><br><span class="line">(4) 由于操作系统出现错误而导致Java虚拟机进程终止</span><br></pre></td></tr></table></figure></p>
-<h2 id="执行引擎"><a href="#执行引擎" class="headerlink" title="执行引擎"></a>执行引擎</h2><p>在编译器将源代码转为字节码文件后，JVM如何执行字节码文件呢？那就需要用到字节码执行引擎了。</p>
-<p>在JVM规范中制定了虚拟机字节码执行引擎的概念模型，这个模型称之为JVM执行引擎的统一外观。JVM实现中，可能会有两种的执行方式：解释执行（通过解释器执行）和编译执行（通过即时编译器产生本地代码）。JVM执行引擎代码执行过程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 输入：字节码文件</span><br><span class="line">2. 处理：字节码解析</span><br><span class="line">3. 输出：执行结果</span><br></pre></td></tr></table></figure></p>
-<p>由于JVM是一个虚拟机，和物理机的执行引擎的区别在于物理机是建立在硬件、指令集和操作系统上实现，而虚拟机是由本身的结构体系实现的。</p>
-<h2 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title="运行时数据区"></a>运行时数据区</h2><p>在运行时数据区当中也包含了几个部分，分别是<strong>PC寄存器、JVM栈、本地方法栈、堆、方法区、运行时常量池</strong>，同样，可以用一张图来描述运行时数据区的内容然后进行分析:</p>
-<p><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/93B2E84A66F74FD49C255175DCDC0654/1848" alt="image"></p>
-<p><em>注：红色部分为线程私有，即每个线程都有一份，蓝色部分为各个线程共享；在JDK1.7中，运行时常量池位置从方法区转移到堆当中。</em></p>
-<h3 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h3><p>在汇编语言当中，程序计数器是指CPU的寄存器，它保存的是程序当前执行的指令的地址。JVM当中的程序计数器的功能是和汇编语言的程序计数器在逻辑上是等同的，也即是都是用来指示执行哪一条指令。</p>
-<p>在JVM规范中规定，如果<strong>线程执行的是非native方法，则程序计数器中保存的是当前需要执行的指令的地址；如果线程执行的是native方法，则程序计数器中的值是undefined</strong>。</p>
-<p>　由于程序计数器中存储的数据所占空间的大小不会随程序的执行而发生改变，因此，<strong>程序计数器不会发生内存溢出现象(OutOfMemory)</strong>。</p>
-<h3 id="JVM栈"><a href="#JVM栈" class="headerlink" title="JVM栈"></a>JVM栈</h3><p>JVM栈也就是常常所说的栈（LIFO），它是JAVA方法执行的内存模型，在栈中只保存基本数据类型和自定义对象的引用。</p>
-<blockquote>
-<p>注意：基本数据类型的包装类是存放在堆上的</p>
-</blockquote>
-<p>在JAVA栈当中存放的是<strong>一个个栈帧，每个栈帧对应一个被调用的方法</strong>。在栈帧中包括了局部变量表，操作数栈，指向运行时常量池的引用，方法的返回地址和一些附加信息。当线程执行一个方法时，就会创建一个对应的栈帧，并将创建的栈帧压进栈。当方法执行完毕，则将栈帧出栈。所以，线程当前所执行的方法一定是在JAVA栈的顶部。下图为一个JVM栈的模型：</p>
-<p><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/FE11F8772737445F8E30D0BA4EDA2D23/1918" alt="image"></p>
-<p>模型注释：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.局部变量表：保存方法内的基本数据类型变量</span><br><span class="line">2.操作数栈：保存方法执行过程当中产生的中间结果</span><br><span class="line">3.指向运行时引用：顾名思义，就是保存变量的引用指针，这里引用是指向运行时常量区的</span><br><span class="line">4.方法返回地址：当方法执行完毕后，保存方法原来的返回地址</span><br></pre></td></tr></table></figure></p>
-<h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>本地方法栈和JVM栈的原理差不多，区别是JVM为执行java代码方法服务，本地方法栈是为Native方法服务。补充一点，一个Native Method就是一个java调用非java代码的接口。</p>
-<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>当JAVA创建一个类的实例对象或者数组时，会在堆中为新的对象分配内存，<strong>几乎所有的对象实例以及数组都要在这里分配内存</strong>。</p>
-<p>在java中，程序员不用去关注内存释放的问题，java的垃圾回收机制会自动进行处理。JAVA HEAP是垃圾收集器管理的主要区域，因而很多时候也被称为是”GC堆”。</p>
-<p>根据JAVA虚拟机规范，JAVA堆可以处在物理上不连续的内存空间，只需要逻辑上的连续即可；如果在堆中没有内存可分配，并且无法扩展时，将会抛出OutOfMemoryError异常。</p>
-<h3 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h3><p>方法区在虚拟机启动时就创建。和堆一样，都是被所有java线程共享的内存区域，在方法区中，存放着每个类的信息和静态变量，内容包括：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.类及其父类的全限定名</span><br><span class="line">2.类的名称</span><br><span class="line">3.访问修饰符</span><br><span class="line">4.实现的接口全限定类名列表</span><br><span class="line">5.静态变量</span><br></pre></td></tr></table></figure></p>
-<p>根据java虚拟机规范，没有强制要求方法区必须实现垃圾回收，如果内存空间不能满足内存分配需要时，将抛出OutOfMemoryError异常</p>
-<h3 id="运行时常量池"><a href="#运行时常量池" class="headerlink" title="运行时常量池"></a>运行时常量池</h3><p>运行时常量池用于存放编译期间生成的各种字面常量和符号引用，在运行期间可以将新的常量放入池中，这部分内容是在类加载后保存的。有关常量池的基础概念：</p>
-<blockquote>
-<p>常量：第一种是指这个值的本身，比如字符常量，整型常量，逻辑常量；第二种是指被final修饰的变量，意为不可变</p>
-</blockquote>
-<blockquote>
-<p>常量池：在java语言当中，一切都是动态的。常量池数据在编译期被确定为，是class文件中的一部分。常量聚集在clas文件的一个区域中，这个区域就被称为“常量池”</p>
-</blockquote>
-<blockquote>
-<p>字符串常量池：是常量池的一部分，存储编译期类中产生的字符串类型数据</p>
-</blockquote>
-<p>在常量池中主要存放两大类常量：字面量和符号引用。</p>
-<blockquote>
-<p>字面量：文本字符串，声明为final的常量值等</p>
-</blockquote>
-<blockquote>
-<p>符号引用：类和接口的完全限定名、字段的名称和描述符、方法的名称和描述符</p>
-</blockquote>
-<h4 id="使用常量池的原因"><a href="#使用常量池的原因" class="headerlink" title="使用常量池的原因"></a>使用常量池的原因</h4><p>使用常量池可以避免频繁的创建和销毁对象而影响系统的性能，实现了对象的共享，可以节省内存空间和运行代码的时间</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://blog.csdn.net/fgets/article/details/52934178" target="_blank" rel="noopener">https://blog.csdn.net/fgets/article/details/52934178</a></p>
-<p><a href="https://blog.csdn.net/seu_calvin/article/details/51404589" target="_blank" rel="noopener">https://blog.csdn.net/seu_calvin/article/details/51404589</a></p>
-
-          
+<p><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/CDE3923EA80841739F9343AEB416E0A1/1725" alt="image"><br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/16/JVM运行原理/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -510,33 +459,19 @@
 
       
         
-          
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>昨天在写人事管理系统时，发现自己对struts2当中Action通配符的使用还不熟悉，现在就来复习一下。</p>
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>昨天在写人事管理系统时，发现自己对struts2当中Action通配符的使用还不熟悉，现在就来复习一下。</p>
 <h2 id="为什么要使用通配符"><a href="#为什么要使用通配符" class="headerlink" title="为什么要使用通配符"></a>为什么要使用通配符</h2><p>首先来看一段代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class DemoAction extends AcitonSupport&#123;</span><br><span class="line">    public String login()&#123;</span><br><span class="line">        System.out.println(&quot;Login&quot;);</span><br><span class="line">        return &quot;success&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    public String register()&#123;</span><br><span class="line">        System.out.println(&quot;Register&quot;);</span><br><span class="line">        return &quot;success&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>那么在struts.xml当中就要有如下配置：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;action name=&quot;login&quot; class=&quot;com.DemoAction&quot; method=&quot;login&quot;&gt;</span><br><span class="line">      &lt;result name=&quot;success&quot;&gt;/index.jsp&lt;/result&gt;</span><br><span class="line">  &lt;/action&gt;</span><br><span class="line"></span><br><span class="line">  &lt;action name=&quot;register&quot; class=&quot;com.DemoAction&quot; method=&quot;register&quot;&gt;</span><br><span class="line">      &lt;result name=&quot;success&quot;&gt;/index.jsp&lt;/result&gt;</span><br><span class="line">  &lt;/action&gt;</span><br></pre></td></tr></table></figure>
-<p>可以发现，这两个节点的配置只有action的路径和方法名称不一样，那么既然可以用一个节点解决的事情，为什么要多配置一个呢，所以就需要使用通配符简化配置。</p>
-<h2 id="如何使用通配符"><a href="#如何使用通配符" class="headerlink" title="如何使用通配符"></a>如何使用通配符</h2><p>先来看这段节点代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;package name=&quot;ActionDemo&quot; extends=&quot;struts-default&quot;&gt;</span><br><span class="line">     &lt;action name=&quot;demoAction_*&quot;</span><br><span class="line">     class=&quot;com.DemoAction&quot; method=&quot;&#123;1&#125;&quot;&gt;</span><br><span class="line">        &lt;result name=&quot;success&quot;&gt;/index.jsp&lt;/result&gt;</span><br><span class="line">         &lt;/action&gt;</span><br><span class="line">&lt;/package&gt;</span><br></pre></td></tr></table></figure>
-<p>分析：</p>
-<ul>
-<li>用_来作分隔符,*就是通配符</li>
-<li>{1}则代表第一个通配符</li>
-</ul>
-<p><strong>注意：在struts2.5版本中，需要在package当中加入以下一段代码才能使用通配符</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;global-allowed-methods&gt;regex:.*&lt;/global-allowed-methods&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>或者加入</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;allowed-methods&gt;login,register&lt;/allowed-methods&gt;</span><br></pre></td></tr></table></figure>
-<p>效果：<br><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/07B1080282064C1FACEB493BFF7971CD/1523" alt="image"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>获取当前struts2的版本，将适当的配置文件导入</li>
-<li>声明action的路径名称，可以有多个*通配符</li>
-<li>method方法选择不一样的通配符</li>
-<li>访问时注意名称</li>
-</ol>
-
-          
+<p>可以发现，这两个节点的配置只有action的路径和方法名称不一样，那么既然可以用一个节点解决的事情，为什么要多配置一个呢，所以就需要使用通配符简化配置。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/03/Struts2-通配符使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
