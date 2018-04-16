@@ -86,15 +86,15 @@
 <meta property="og:site_name" content="KINNLL">
 <meta property="og:description" content="初识JVM在进行代码的编写时，常常涉及内存的分配问题，为更好的理解java底层的实现，做到知其然而知其所以然，因此写下本博文，加深对JVM理论知识的理解。 JVM是什么JVM是JAVA Virtual Machine的缩写，意思为java虚拟机。JVM是JRE（JAVA运行环境）的一部分，是一个虚构出来的运行在操作系统之上的计算机。JVM有完善的架构，例如堆栈，寄存器，处理器，还有相应的指令系统。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/BB9A90ADC8AD4F8F8EBAD64AA79BC7A0/1630">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/282D88D1F7B84ABFB28E83A1A6D1C3B4/2151">
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/CDE3923EA80841739F9343AEB416E0A1/1725">
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/93B2E84A66F74FD49C255175DCDC0654/1848">
 <meta property="og:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/FE11F8772737445F8E30D0BA4EDA2D23/1918">
-<meta property="og:updated_time" content="2018-04-16T08:04:50.552Z">
+<meta property="og:updated_time" content="2018-04-16T08:15:14.560Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM运行原理">
 <meta name="twitter:description" content="初识JVM在进行代码的编写时，常常涉及内存的分配问题，为更好的理解java底层的实现，做到知其然而知其所以然，因此写下本博文，加深对JVM理论知识的理解。 JVM是什么JVM是JAVA Virtual Machine的缩写，意思为java虚拟机。JVM是JRE（JAVA运行环境）的一部分，是一个虚构出来的运行在操作系统之上的计算机。JVM有完善的架构，例如堆栈，寄存器，处理器，还有相应的指令系统。">
-<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/BB9A90ADC8AD4F8F8EBAD64AA79BC7A0/1630">
+<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/282D88D1F7B84ABFB28E83A1A6D1C3B4/2151">
 
 
 
@@ -326,7 +326,7 @@
       
         <h1 id="初识JVM"><a href="#初识JVM" class="headerlink" title="初识JVM"></a>初识JVM</h1><p>在进行代码的编写时，常常涉及内存的分配问题，为更好的理解java底层的实现，做到知其然而知其所以然，因此写下本博文，加深对JVM理论知识的理解。</p>
 <h2 id="JVM是什么"><a href="#JVM是什么" class="headerlink" title="JVM是什么"></a>JVM是什么</h2><p>JVM是JAVA Virtual Machine的缩写，意思为java虚拟机。JVM是JRE（JAVA运行环境）的一部分，是一个虚构出来的运行在操作系统之上的计算机。JVM有完善的架构，例如堆栈，寄存器，处理器，还有相应的指令系统。</p>
-<h2 id="Java程序运行过程"><a href="#Java程序运行过程" class="headerlink" title="Java程序运行过程"></a>Java程序运行过程</h2><p>一个java程序执行的完整过程可以用以下图来解释：<br><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/BB9A90ADC8AD4F8F8EBAD64AA79BC7A0/1630" alt="image"></p>
+<h2 id="Java程序运行过程"><a href="#Java程序运行过程" class="headerlink" title="Java程序运行过程"></a>Java程序运行过程</h2><p>一个java程序执行的完整过程可以用以下图来解释：<br><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/282D88D1F7B84ABFB28E83A1A6D1C3B4/2151" alt="image"></p>
 <p>首先，java源文件会被java编译器编译为字节码文件，也就是文件后缀会从java转为class，然后由JVM当中的类加载器加载各个类的字节码文件，加载完毕后，交给JVM执行引擎执行。在执行期间，JVM把这段时间所要用到的数据和相关信息会在运行时数据区进行存储，这段数据区也就是俗称的JVM内存。所以在JVM中，需要重点关注的就是这部分内容。<br><a id="more"></a></p>
 <h1 id="JVM内存划分"><a href="#JVM内存划分" class="headerlink" title="JVM内存划分"></a>JVM内存划分</h1><p>从java程序的运行过程可知，JVM内部体系可以分为三部分，分别是：类装载器，运行时数据区，执行引擎。</p>
 <h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><p>类加载的作用就是把class文件加载到JVM当中的运行时数据区，但是不负责次类文件是否执行，而是由执行引擎负责的。这里简要介绍一下类加载的两大内容。</p>
@@ -341,7 +341,7 @@
 <h3 id="类加载的机制"><a href="#类加载的机制" class="headerlink" title="类加载的机制"></a>类加载的机制</h3><p>类的生命周期可以分为七个阶段：加载，验证，准备，解析，初始化，使用，卸载。其中前五个阶段为类加载到内存的过程。注意这几个阶段是按顺序开始，并不是按顺序进行和完成。</p>
 <ol>
 <li>加载：查找和导入Class文件</li>
-<li>验证：确保Class文件中的字节流信息符合当前虚拟机的要求<br>，而且不会危害虚拟机的安全</li>
+<li>验证：确保Class文件中的字节流信息符合当前虚拟机的要求，而且不会危害虚拟机的安全</li>
 <li>准备阶段是正式为类分配内存并设置变量初始值的阶段，这些内存都将在方法区中进行分配</li>
 <li>解析：这个阶段是虚拟机将常量池内的符号引用替换为直接引用的过程</li>
 <li><p>初始化：到了这个阶段，开始执行类中定义的Java程序代码，为类的静态变量赋予正确的初始值，JVM负责对类进行初始化，主要对类变量进行初始化。那么类初始的触发条件可以有：</p>
