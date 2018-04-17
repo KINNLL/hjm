@@ -86,15 +86,15 @@
 <meta property="og:site_name" content="KINNLL">
 <meta property="og:description" content="初识JVM在进行代码的编写时，常常涉及内存的分配问题，为更好的理解java底层的实现，做到知其然而知其所以然，因此写下本博文，加深对JVM理论知识的理解。 JVM是什么JVM是JAVA Virtual Machine的缩写，意思为java虚拟机。JVM是JRE（JAVA运行环境）的一部分，是一个虚构出来的运行在操作系统之上的计算机。JVM有完善的架构，例如堆栈，寄存器，处理器，还有相应的指令系统。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/282D88D1F7B84ABFB28E83A1A6D1C3B4/2151">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/CDE3923EA80841739F9343AEB416E0A1/1725">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/93B2E84A66F74FD49C255175DCDC0654/1848">
-<meta property="og:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/FE11F8772737445F8E30D0BA4EDA2D23/1918">
-<meta property="og:updated_time" content="2018-04-16T08:15:14.560Z">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/0999e7e03eaf66e2e323e2933641d7da/xmlnote/7EE92A2995B34300BA4D21FBD4163269/2159">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/0999e7e03eaf66e2e323e2933641d7da/xmlnote/0A68C13C94A64EB19A38FF5657FF0085/2160">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/0999e7e03eaf66e2e323e2933641d7da/xmlnote/6A825D7BE631466D93A206205EA1ADC0/2161">
+<meta property="og:image" content="https://note.youdao.com/yws/public/resource/0999e7e03eaf66e2e323e2933641d7da/xmlnote/749912B5C6CB4EE2A07514BCD15DAF56/2164">
+<meta property="og:updated_time" content="2018-04-17T10:24:51.525Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM运行原理">
 <meta name="twitter:description" content="初识JVM在进行代码的编写时，常常涉及内存的分配问题，为更好的理解java底层的实现，做到知其然而知其所以然，因此写下本博文，加深对JVM理论知识的理解。 JVM是什么JVM是JAVA Virtual Machine的缩写，意思为java虚拟机。JVM是JRE（JAVA运行环境）的一部分，是一个虚构出来的运行在操作系统之上的计算机。JVM有完善的架构，例如堆栈，寄存器，处理器，还有相应的指令系统。">
-<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/282D88D1F7B84ABFB28E83A1A6D1C3B4/2151">
+<meta name="twitter:image" content="https://note.youdao.com/yws/public/resource/0999e7e03eaf66e2e323e2933641d7da/xmlnote/7EE92A2995B34300BA4D21FBD4163269/2159">
 
 
 
@@ -326,7 +326,7 @@
       
         <h1 id="初识JVM"><a href="#初识JVM" class="headerlink" title="初识JVM"></a>初识JVM</h1><p>在进行代码的编写时，常常涉及内存的分配问题，为更好的理解java底层的实现，做到知其然而知其所以然，因此写下本博文，加深对JVM理论知识的理解。</p>
 <h2 id="JVM是什么"><a href="#JVM是什么" class="headerlink" title="JVM是什么"></a>JVM是什么</h2><p>JVM是JAVA Virtual Machine的缩写，意思为java虚拟机。JVM是JRE（JAVA运行环境）的一部分，是一个虚构出来的运行在操作系统之上的计算机。JVM有完善的架构，例如堆栈，寄存器，处理器，还有相应的指令系统。</p>
-<h2 id="Java程序运行过程"><a href="#Java程序运行过程" class="headerlink" title="Java程序运行过程"></a>Java程序运行过程</h2><p>一个java程序执行的完整过程可以用以下图来解释：<br><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/282D88D1F7B84ABFB28E83A1A6D1C3B4/2151" alt="image"></p>
+<h2 id="Java程序运行过程"><a href="#Java程序运行过程" class="headerlink" title="Java程序运行过程"></a>Java程序运行过程</h2><p>一个java程序执行的完整过程可以用以下图来解释：<br><img src="https://note.youdao.com/yws/public/resource/0999e7e03eaf66e2e323e2933641d7da/xmlnote/7EE92A2995B34300BA4D21FBD4163269/2159" alt="image"></p>
 <p>首先，java源文件会被java编译器编译为字节码文件，也就是文件后缀会从java转为class，然后由JVM当中的类加载器加载各个类的字节码文件，加载完毕后，交给JVM执行引擎执行。在执行期间，JVM把这段时间所要用到的数据和相关信息会在运行时数据区进行存储，这段数据区也就是俗称的JVM内存。所以在JVM中，需要重点关注的就是这部分内容。<br><a id="more"></a></p>
 <h1 id="JVM内存划分"><a href="#JVM内存划分" class="headerlink" title="JVM内存划分"></a>JVM内存划分</h1><p>从java程序的运行过程可知，JVM内部体系可以分为三部分，分别是：类装载器，运行时数据区，执行引擎。</p>
 <h2 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h2><p>类加载的作用就是把class文件加载到JVM当中的运行时数据区，但是不负责次类文件是否执行，而是由执行引擎负责的。这里简要介绍一下类加载的两大内容。</p>
@@ -337,7 +337,7 @@
 <li>AppClassLoader<br>系统类加载器，也成为应用程序类加载器，负责加载应用程序classpath目录的jar和class文件，父类加载器是Ext加载器</li>
 <li>由以上三点可以得出三个加载器的层次结构：</li>
 </ol>
-<p><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/CDE3923EA80841739F9343AEB416E0A1/1725" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/0999e7e03eaf66e2e323e2933641d7da/xmlnote/0A68C13C94A64EB19A38FF5657FF0085/2160" alt="image"></p>
 <h3 id="类加载的机制"><a href="#类加载的机制" class="headerlink" title="类加载的机制"></a>类加载的机制</h3><p>类的生命周期可以分为七个阶段：加载，验证，准备，解析，初始化，使用，卸载。其中前五个阶段为类加载到内存的过程。注意这几个阶段是按顺序开始，并不是按顺序进行和完成。</p>
 <ol>
 <li>加载：查找和导入Class文件</li>
@@ -355,7 +355,7 @@
 <p>在JVM规范中制定了虚拟机字节码执行引擎的概念模型，这个模型称之为JVM执行引擎的统一外观。JVM实现中，可能会有两种的执行方式：解释执行（通过解释器执行）和编译执行（通过即时编译器产生本地代码）。JVM执行引擎代码执行过程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 输入：字节码文件</span><br><span class="line">2. 处理：字节码解析</span><br><span class="line">3. 输出：执行结果</span><br></pre></td></tr></table></figure></p>
 <p>由于JVM是一个虚拟机，和物理机的执行引擎的区别在于物理机是建立在硬件、指令集和操作系统上实现，而虚拟机是由本身的结构体系实现的。</p>
 <h2 id="运行时数据区"><a href="#运行时数据区" class="headerlink" title="运行时数据区"></a>运行时数据区</h2><p>在运行时数据区当中也包含了几个部分，分别是<strong>PC寄存器、JVM栈、本地方法栈、堆、方法区、运行时常量池</strong>，同样，可以用一张图来描述运行时数据区的内容然后进行分析:</p>
-<p><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/93B2E84A66F74FD49C255175DCDC0654/1848" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/0999e7e03eaf66e2e323e2933641d7da/xmlnote/6A825D7BE631466D93A206205EA1ADC0/2161" alt="image"></p>
 <p><em>注：红色部分为线程私有，即每个线程都有一份，蓝色部分为各个线程共享；在JDK1.7中，运行时常量池位置从方法区转移到堆当中。</em></p>
 <h3 id="PC寄存器"><a href="#PC寄存器" class="headerlink" title="PC寄存器"></a>PC寄存器</h3><p>在汇编语言当中，程序计数器是指CPU的寄存器，它保存的是程序当前执行的指令的地址。JVM当中的程序计数器的功能是和汇编语言的程序计数器在逻辑上是等同的，也即是都是用来指示执行哪一条指令。</p>
 <p>在JVM规范中规定，如果<strong>线程执行的是非native方法，则程序计数器中保存的是当前需要执行的指令的地址；如果线程执行的是native方法，则程序计数器中的值是undefined</strong>。</p>
@@ -365,7 +365,7 @@
 <p>注意：基本数据类型的包装类是存放在堆上的</p>
 </blockquote>
 <p>在JAVA栈当中存放的是<strong>一个个栈帧，每个栈帧对应一个被调用的方法</strong>。在栈帧中包括了局部变量表，操作数栈，指向运行时常量池的引用，方法的返回地址和一些附加信息。当线程执行一个方法时，就会创建一个对应的栈帧，并将创建的栈帧压进栈。当方法执行完毕，则将栈帧出栈。所以，线程当前所执行的方法一定是在JAVA栈的顶部。下图为一个JVM栈的模型：</p>
-<p><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/FE11F8772737445F8E30D0BA4EDA2D23/1918" alt="image"></p>
+<p><img src="https://note.youdao.com/yws/public/resource/0999e7e03eaf66e2e323e2933641d7da/xmlnote/749912B5C6CB4EE2A07514BCD15DAF56/2164" alt="image"></p>
 <p>模型注释：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.局部变量表：保存方法内的基本数据类型变量</span><br><span class="line">2.操作数栈：保存方法执行过程当中产生的中间结果</span><br><span class="line">3.指向运行时引用：顾名思义，就是保存变量的引用指针，这里引用是指向运行时常量区的</span><br><span class="line">4.方法返回地址：当方法执行完毕后，保存方法原来的返回地址</span><br></pre></td></tr></table></figure></p>
 <h3 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h3><p>本地方法栈和JVM栈的原理差不多，区别是JVM为执行java代码方法服务，本地方法栈是为Native方法服务。补充一点，一个Native Method就是一个java调用非java代码的接口。</p>
 <h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>当JAVA创建一个类的实例对象或者数组时，会在堆中为新的对象分配内存，<strong>几乎所有的对象实例以及数组都要在这里分配内存</strong>。</p>

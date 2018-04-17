@@ -324,7 +324,7 @@
         
           <h1 id="初识JVM"><a href="#初识JVM" class="headerlink" title="初识JVM"></a>初识JVM</h1><p>在进行代码的编写时，常常涉及内存的分配问题，为更好的理解java底层的实现，做到知其然而知其所以然，因此写下本博文，加深对JVM理论知识的理解。</p>
 <h2 id="JVM是什么"><a href="#JVM是什么" class="headerlink" title="JVM是什么"></a>JVM是什么</h2><p>JVM是JAVA Virtual Machine的缩写，意思为java虚拟机。JVM是JRE（JAVA运行环境）的一部分，是一个虚构出来的运行在操作系统之上的计算机。JVM有完善的架构，例如堆栈，寄存器，处理器，还有相应的指令系统。</p>
-<h2 id="Java程序运行过程"><a href="#Java程序运行过程" class="headerlink" title="Java程序运行过程"></a>Java程序运行过程</h2><p>一个java程序执行的完整过程可以用以下图来解释：<br><img src="https://note.youdao.com/yws/public/resource/b4d6b6ddc0f62faa768911eca77d07ba/xmlnote/282D88D1F7B84ABFB28E83A1A6D1C3B4/2151" alt="image"></p>
+<h2 id="Java程序运行过程"><a href="#Java程序运行过程" class="headerlink" title="Java程序运行过程"></a>Java程序运行过程</h2><p>一个java程序执行的完整过程可以用以下图来解释：<br><img src="https://note.youdao.com/yws/public/resource/0999e7e03eaf66e2e323e2933641d7da/xmlnote/7EE92A2995B34300BA4D21FBD4163269/2159" alt="image"></p>
 <p>首先，java源文件会被java编译器编译为字节码文件，也就是文件后缀会从java转为class，然后由JVM当中的类加载器加载各个类的字节码文件，加载完毕后，交给JVM执行引擎执行。在执行期间，JVM把这段时间所要用到的数据和相关信息会在运行时数据区进行存储，这段数据区也就是俗称的JVM内存。所以在JVM中，需要重点关注的就是这部分内容。<br>
           <!--noindex-->
           <div class="post-button text-center">
